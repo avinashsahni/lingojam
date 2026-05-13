@@ -17,7 +17,7 @@ export async function generateMetadata(
   if (!t) return {};
   return {
     title: `${t.title} — LingoJam`,
-    description: t.description,
+    description: `${t.description} Try our free ${t.title.toLowerCase()} now! No signup needed.`,
     openGraph: {
       title: `${t.title} — LingoJam`,
       description: t.description,
@@ -37,8 +37,8 @@ export default async function TranslatorPage({
   const translator = getTranslatorBySlug(slug);
   if (!translator) notFound();
 
-  // JSON-LD Schema for SEO
-  const schema = {
+  // JSON-LD Schemas for SEO
+  const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: translator.title,
@@ -49,12 +49,48 @@ export default async function TranslatorPage({
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://lingojam.co" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: translator.title,
+        item: `https://lingojam.co/${translator.slug}`,
+      },
+    ],
+  };
+
+  const faqSchema = translator.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: translator.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <main className="max-w-3xl mx-auto px-4 py-10">
         {/* Title */}

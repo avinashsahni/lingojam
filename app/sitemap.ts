@@ -6,7 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticPages = [
     { url: base, priority: 1.0, changeFrequency: "weekly" as const },
-    { url: `${base}/translators`, priority: 0.9, changeFrequency: "weekly" as const },
   ];
 
   const translatorPages = translators.map((t) => ({
