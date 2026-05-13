@@ -71,7 +71,7 @@ export default function Footer() {
             <Link href="/" className="text-xs text-gray-400 hover:text-gray-600 transition">
               Home
             </Link>
-            <Link href="/translators" className="text-xs text-gray-400 hover:text-gray-600 transition">
+            <Link href="/#translators" className="text-xs text-gray-400 hover:text-gray-600 transition">
               All Translators
             </Link>
           </nav>

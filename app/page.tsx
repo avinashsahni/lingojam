@@ -26,7 +26,7 @@ export default function HomePage() {
           200+ free text generators and translators. Fancy fonts, ciphers, language styles — no signup needed.
         </p>
         <Link
-          href="/translators"
+          href="#translators"
           className="mt-6 inline-block bg-indigo-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-700 transition"
         >
           Browse All Translators →
@@ -55,7 +55,7 @@ export default function HomePage() {
       </section>
 
       {/* All Translators by Category */}
-      <section className="max-w-5xl mx-auto px-4 pb-16">
+      <section id="translators" className="max-w-5xl mx-auto px-4 pb-16">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">All Translators</h2>
         {["text-style", "cipher", "language", "meme"].map((cat) => {
           const items = translators.filter((t) => t.category === cat);

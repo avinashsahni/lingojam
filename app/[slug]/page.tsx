@@ -65,7 +65,7 @@ export default async function TranslatorPage({
         </div>
 
         {/* Translator UI */}
-        <TranslatorBox translator={translator} />
+        <TranslatorBox translator={{ ...translator, fn: undefined }} />
 
         {/* FAQ Section */}
         {translator.faqs && translator.faqs.length > 0 && (

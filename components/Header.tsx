@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { href: "/translators", label: "All Translators" },
+  { href: "/#translators", label: "All Translators" },
   { href: "/fancy-text-generator", label: "Fancy Text" },
   { href: "/morse-code-translator", label: "Morse Code" },
   { href: "/cursive-text-generator", label: "Cursive" },

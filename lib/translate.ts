@@ -1,4 +1,5 @@
 import { Translator } from "./types";
+import { getTranslatorBySlug } from "@/data/translators/_index";
 
 export function translate(input: string, translator: Translator): string {
   if (!input.trim()) return "";
@@ -8,8 +9,11 @@ export function translate(input: string, translator: Translator): string {
       return charMapTranslate(input, translator.rules!);
     case "wordmap":
       return wordMapTranslate(input, translator.rules!);
-    case "function":
-      return translator.fn!(input);
+    case "function": {
+      // Re-fetch the translator to get the non-serializable function
+      const fullTranslator = getTranslatorBySlug(translator.slug);
+      return fullTranslator?.fn ? fullTranslator.fn(input) : input;
+    }
     default:
       return input;
   }
